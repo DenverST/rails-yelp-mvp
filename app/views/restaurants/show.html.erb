@@ -9,11 +9,31 @@
 <h2>Reviews</h2>
 
 <ul>
-  <% @restaurant.reviews.each do |review| %>
+  <% if @restaurant.reviews.empty?  %>
     <li>
-      <%= review.content %>
-      <%= review.rating %>
+      <i class="fas fa-user-graduate"></i>
+      <%= "Be the first to review" %>
+      <%= @restaurant.name %>
     </li>
+  <% end %>
+  <% @restaurant.reviews.each do |review| %>
+
+    <% if review.rating == 0 %>
+      <li>
+        <%= review.content %>
+        <i class="fas fa-frown"></i>
+        <%= "This user gave a 0 star rating" %>
+      </li>
+    <% end %>
+
+    <% if review.rating > 0 %>
+      <li>
+        <%= review.content %>
+        <% review.rating.times do %>
+           <i class="fas fa-star"></i>
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 
